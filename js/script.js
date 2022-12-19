@@ -33,7 +33,7 @@ createApp({
                 }
             ]
         }
-    }
+    },
     methods: {
         changeImage(index){
             this.activeImage = index
