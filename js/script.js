@@ -1,9 +1,10 @@
-const { createApp } = Vue
+const { createApp } = Vue;
 
 createApp({
     data() {
         return {
             activeSlide: 0,
+            autoplay: null,
             slides:
             [
                 {
@@ -34,9 +35,36 @@ createApp({
             ]
         }
     },
+    created(){
+        this.autoScroll();
+    },
     methods: {
-        changeImage(index){
-            this.activeImage = index
+        changeSlide(index)
+        {
+            this.activeSlide = index;
+        },
+        next(){
+            this.activeSlide++;
+            if(this.activeSlide > this.slides.length - 1){
+                this.activeSlide = 0;
+            }
+        },
+        prev(){
+            this.activeSlide--;
+            if(this.activeSlide < 0){
+                this.activeSlide = this.slides.length - 1;
+            }
+        },
+        autoScroll()
+        {
+            this.autoplay = setInterval(() => {
+                this.next();
+            }, 3000);
+        },
+        stopAutoScroll()
+        {
+            clearInterval(this.autoplay)
+            this.autoplay = null;
         }
     }
 }).mount('#app')

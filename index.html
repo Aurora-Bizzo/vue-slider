@@ -12,22 +12,24 @@
     <div id="app">
         <div class="container">
             <div class="slider-wrapper" tabindex="0">
-                <div class="item">
-                    <img v-bind:src="slides.image[activeSlide]" v-bind:alt="slide.title"/>
+                <div class="item" @mouseover="stopAutoScroll" @mouseleave="autoScroll">
+                    <img v-bind:src="slides[activeSlide].image" v-bind:alt="slides[activeSlide].title"/>
                     <div class="text">
                         <h3>
-                            {{slides[activeSlide].title}}
+                            {{ slides[activeSlide].title }}
                         </h3>
                         <p>
-                            {{slides[activeSlide].text}}
+                            {{ slides[activeSlide].text }}
                         </p>
                     </div>
                 </div>
 
                 <div class="thumbs">
-                    <div class="prev"></div>
-                    <div class="next"></div>
-                    <img class="thumb" v-bind:class="(activeSlide == index) ? 'active' : ''" v-for="(image, index) in slides" :src="image">
+                    <div class="prev" @click="prev"></div>
+                    <div class="next" @click="next"></div>
+                    <div class="thumb" v-for="(thumb, index) in slides" :class="(activeSlide === index) ? 'active' : ''" @click="changeSlide(index)">
+                        <img   :src="thumb.image" :alt="thumb.title"/>
+                    </div>
                     </img>
                 </div>
             </div>
